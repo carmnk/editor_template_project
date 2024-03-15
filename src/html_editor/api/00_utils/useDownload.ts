@@ -1,9 +1,9 @@
 import { AxiosResponse } from 'axios'
 import React from 'react'
-import { usePromiseToast, useToast } from '../../store/reducers/toast'
+import { usePromiseToast, useToast } from '../../store/reducers/toast.js'
 import { TOASTS } from '../../content/toasts.js'
-import { DownloadParamsKeyType, DownloadParamsCreateParams, DownloadParamsType } from '../DOWNLOADS'
-import { getLinkFromDownloadResponse, openDownloadWithLink } from './queryResponseHelperFns'
+import { DownloadParamsKeyType, DownloadParamsCreateParams, DownloadParamsType } from '../DOWNLOADS.js'
+import { getLinkFromDownloadResponse, openDownloadWithLink } from './queryResponseHelperFns.js'
 
 export type UseDownloadQueryType<P> = (
   payload?: P,
