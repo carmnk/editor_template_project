@@ -10,7 +10,7 @@ import {
   muiLightSiteTheme,
 } from './html_editor/theme/muiTheme.tsx'
 
-import appEditorRawState from '../site_props.json'
+import appEditorRawState from '../website.json'
 
 const themes = reloadSerializedThemes((appEditorRawState as any)?.themes, [
   muiLightSiteTheme,

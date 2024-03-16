@@ -1,38 +1,34 @@
-import { Box } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { renderHtmlElements } from './renderElements.tsx'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import { uniq } from 'lodash'
-import { EditorControllerType } from './editorController/editorControllerTypes.ts'
-import { e } from 'vite-node/index-WT31LSgS.js'
-import { baseComponents } from './editorComponents/baseComponents.ts'
-import { PropertyType } from './editorComponents/rawSchema.ts'
-import { importIconByName } from './defs/icons.ts'
+import { Box } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { renderHtmlElements } from "./renderElements.tsx";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { uniq } from "lodash";
+import { EditorControllerType } from "./editorController/editorControllerTypes.ts";
 
 // -> must be generated dynamically!
 // import siteProps from '../site_props.json'
 
 export type HtmlRendererProps = {
-  editorController: EditorControllerType
-  icons?: { [key: string]: string }
-}
+  editorController: EditorControllerType;
+  icons?: { [key: string]: string };
+};
 
 export const HtmlRenderer = (props: HtmlRendererProps) => {
-  const { editorController, icons } = props
-  const { editorState, setEditorState } = editorController
-  const handleSelectElement = React.useCallback(() => {}, [])
-  const location = useLocation()
+  const { editorController, icons } = props;
+  const { editorState, setEditorState } = editorController;
+  const handleSelectElement = React.useCallback(() => {}, []);
+  const location = useLocation();
 
-  console.log('ELEMENTS', editorState.elements, icons)
+  console.log("ELEMENTS", editorState.elements, icons);
 
   const renderPage = React.useCallback(
     (page: string) => {
       const pageElements = editorState.elements.filter(
         (el) => el._page === page
-      )
+      );
       const pageElementsAdj = pageElements.map((el) => {
-        if (el._parentId) return el
-        return el
+        if (el._parentId) return el;
+        return el;
         return {
           ...el,
           attributes: {
@@ -42,8 +38,8 @@ export const HtmlRenderer = (props: HtmlRendererProps) => {
             //   bgcolor: 'background.paper',
             // },
           },
-        }
-      })
+        };
+      });
       // console.log(
       //   'renderPage',
       //   page,
@@ -59,22 +55,22 @@ export const HtmlRenderer = (props: HtmlRendererProps) => {
         handleSelectElement,
         true,
         icons
-      )
+      );
     },
     [editorState, editorController, handleSelectElement, icons]
-  )
+  );
 
   // change the route, renderer uses editorState.ui.selected.page to render the page
   useEffect(() => {
-    console.log('location changed', location.pathname)
-    const pageName = location.pathname.slice(1) || 'index'
+    console.log("location changed", location.pathname);
+    const pageName = location.pathname.slice(1) || "index";
     setEditorState((current) => ({
       ...current,
       ui: {
         ...current.ui,
         selected: { ...current.ui.selected, page: pageName },
       },
-    }))
+    }));
     // const loadIcons = async () => {
     //   const comoponentsWithIcons = editorState.elements.filter((el) => {
     //     const baseComponent = baseComponents?.find((bc) => bc.type === el._type)
@@ -105,18 +101,18 @@ export const HtmlRenderer = (props: HtmlRendererProps) => {
     //   setIcons((current) => ({ ...current, ...icons }))
     // }
     // loadIcons()
-  }, [location.pathname])
+  }, [location.pathname]);
 
   const remainingPages = React.useMemo(() => {
-    const pages = uniq(editorState?.elements?.map((el) => el._page) ?? [])
-    const pagesExIndex = pages.filter((page) => page !== 'index')
-    return pagesExIndex
-  }, [editorState])
+    const pages = uniq(editorState?.elements?.map((el) => el._page) ?? []);
+    const pagesExIndex = pages.filter((page) => page !== "index");
+    return pagesExIndex;
+  }, [editorState]);
 
   return (
     <Box height="100%" bgcolor="background.default">
       <Routes>
-        <Route path="/" element={renderPage('index')} />
+        <Route path="/" element={renderPage("index")} />
         {remainingPages?.map((pageName) => (
           <Route
             key={pageName}
@@ -126,5 +122,5 @@ export const HtmlRenderer = (props: HtmlRendererProps) => {
         ))}
       </Routes>
     </Box>
-  )
-}
+  );
+};
