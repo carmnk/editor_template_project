@@ -85,7 +85,7 @@ export const ToastMessage = (props: Pick<ToastType, 'title' | 'text'>) => {
 }
 
 export const useToastSender: any = () => {
-  const { appState } = useAppSelector((state) => state?.userReducer ?? {})
+  const { appState } = useAppSelector((state: any) => state?.userReducer ?? {})
   const toasts = appState?.toasts
   const dispatch = useAppDispatch()
   // const [activeToastsState, setActiveToasts] = React.useState(true)

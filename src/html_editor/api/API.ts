@@ -1,6 +1,5 @@
 import { MatchingObjectKeys } from './Types/general'
 import { makeApiQuery } from './00_utils/makeApiQuery'
-import { ENTITY_DATA_MODEL_TYPE } from 'common/entity_model'
 
 //SETTING BASE URL
 export const BASE_URL = import.meta.env.VITE_BE_SERVER_URL
@@ -33,7 +32,7 @@ export const API = {
   exportProjectToZip: (project_id: string | number) =>
     makeApiQuery<any, any>(`_api/editor/export/${project_id}`, 'POST'),
   // BASE-FULLSTACK
-  entityModel: makeApiQuery<undefined, ENTITY_DATA_MODEL_TYPE>(
+  entityModel: makeApiQuery<undefined, any>(
     'entity_model',
     'GET'
   ),

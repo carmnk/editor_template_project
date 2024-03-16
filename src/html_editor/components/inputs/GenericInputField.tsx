@@ -174,6 +174,7 @@ export const GenericInputField = (props: GenericInputFieldProps) => {
     />
   ) : type === "select" ? (
     <CSelect
+      variant="outlined"
       label={label}
       value={value}
       name={name}
