@@ -3,12 +3,8 @@ name: DEPLOY-GHP
 on:
   push:
     branches: ["main"]
-    paths:
-      - "package.json"
   pull_request:
     branches: ["main"]
-    paths:
-      - "package.json"
 
 env:
   CI: false
