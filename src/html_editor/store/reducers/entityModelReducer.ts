@@ -1,10 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { ENTITY_DATA_MODEL_TYPE } from 'common/entity_model'
 // import { RootState, AppThunk } from '../store'
 //import { createAsyncThunk } from '@reduxjs/toolkit'
 
 export interface EntityModelStoreType {
-  entityModel: ENTITY_DATA_MODEL_TYPE
+  entityModel: any
   // {
   //   entities: ENTITY_TYPE[]
   //   entity_fields: ENTITY_FIELD_TYPE[]

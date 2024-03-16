@@ -1,39 +1,39 @@
-import React from 'react'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   updateEntityModel,
   updateStructuredJoiningsModel,
-} from '../../store/reducers/entityModelReducer'
-import { getStructuredEntityJoinings } from 'common/entity_model'
-import { API } from '../API'
+} from "../../store/reducers/entityModelReducer";
+// import { getStructuredEntityJoinings } from 'common/entity_model'
+import { API } from "../API";
 
 export const useEntityModel = (currentBaseEntityId: number | undefined) => {
   const { entity_fields, entity_joinings } = useAppSelector(
     (state: any) => state.entityModelReducer.entityModel
-  )
-  const dispatch = useAppDispatch()
+  );
+  const dispatch = useAppDispatch();
   const updateDataModel = React.useCallback(async () => {
     try {
       const data = (
         await API.entityModel.query(undefined, undefined, undefined, {
           disableRedirectToLogin: true,
         })
-      )?.data
-      if (!data) throw new Error('No data')
-      dispatch(updateEntityModel(data))
+      )?.data;
+      if (!data) throw new Error("No data");
+      dispatch(updateEntityModel(data));
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
-  }, [dispatch])
+  }, [dispatch]);
 
   React.useEffect(
     () => {
-      updateDataModel()
+      updateDataModel();
     },
     // run only once at start
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
-  )
+  );
 
   React.useEffect(() => {
     const fetchJoiningsStructure = async () => {
@@ -42,16 +42,17 @@ export const useEntityModel = (currentBaseEntityId: number | undefined) => {
         !entity_fields?.length ||
         !entity_joinings?.length
       )
-        return
-      const structuredEntityJoinings = await getStructuredEntityJoinings(
-        currentBaseEntityId,
-        entity_fields,
-        entity_joinings
-      )
-      dispatch(updateStructuredJoiningsModel(structuredEntityJoinings))
-    }
-    fetchJoiningsStructure()
-  }, [currentBaseEntityId, entity_fields, entity_joinings, dispatch])
+        return;
+      return null;
+      // const structuredEntityJoinings = await getStructuredEntityJoinings(
+      //   currentBaseEntityId,
+      //   entity_fields,
+      //   entity_joinings
+      // );
+      // dispatch(updateStructuredJoiningsModel(structuredEntityJoinings));
+    };
+    fetchJoiningsStructure();
+  }, [currentBaseEntityId, entity_fields, entity_joinings, dispatch]);
 
-  return { updateDataModel }
-}
+  return { updateDataModel };
+};
